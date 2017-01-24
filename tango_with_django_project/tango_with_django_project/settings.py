@@ -42,7 +42,8 @@ INSTALLED_APPS = [
     'rango',
 ]
 
-MIDDLEWARE = [
+# Line changed from 'MIDDLEWARE = [' TO 'MIDDLEWARE_CLASSES = ['
+MIDDLEWARE_CLASSES = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
