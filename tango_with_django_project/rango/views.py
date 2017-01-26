@@ -37,7 +37,7 @@ def show_category(request, category_name_slug):
 
     # Go render the response and return it to the client.
     return render(request, 'rango/category.html', context_dict)
-    
+
 def index(request):
     # Query the database for a list of ALL categories currently stored.
     # Order the categories by no. likes in descending order.
@@ -46,7 +46,10 @@ def index(request):
     # that will be passed to the template engine.
 
     category_list = Category.objects.order_by('-likes')[:5]
-    context_dict =  {'categories': category_list}
+
+    # As above for pages (ordered by views). Added to context_dict.
+    page_list = Page.objects.order_by('-views')[:5]
+    context_dict =  {'categories': category_list, 'pages': page_list}
 
     # Return a rendered response to send to the client.
     # We make use of the shortcut function to make our lives easier.
