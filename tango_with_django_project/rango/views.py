@@ -10,6 +10,31 @@ from rango.models import Page
 # Import the CategoryForm model
 from rango.forms import CategoryForm
 
+# Import the PageForm model
+from rango.forms import PageForm
+
+def add_page(request, category_name_slug):
+    try:
+        category = Category.objects.get(slug=category_name_slug)
+    except Category.DoesNotExist:
+        category = None
+
+    form = PageForm()
+    if request.method == 'POST':
+        form = PageForm(request.POST)
+        if form.is_valid():
+            if category:
+                page = form.save(commit=False)
+                page.category = category
+                page.views = 0
+                page.save()
+                return show_category(request, category_name_slug)
+        else:
+            print(form.errors)
+
+    context_dict = {'form':form, 'category':category}
+    return render(request, 'rango/add_page.html', context_dict)
+
 def add_category(request):
     form = CategoryForm()
 
@@ -95,6 +120,5 @@ def about(request):
     # Note that the first parameter is the template we wish to use.
     return render(request, 'rango/about.html', context=context_dict)
 
-
     return HttpResponse("Rango says here is the about page <br/> <a href='/rango/'>Return to main page</a>")
-    #added link to main page
+    # added link to main page

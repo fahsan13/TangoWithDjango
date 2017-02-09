@@ -2,6 +2,8 @@ from __future__ import unicode_literals
 from django.db import models
 from django.template.defaultfilters import slugify
 
+# Can refactor to make models.IntegerField a variable
+
 class Category(models.Model):
     name = models.CharField(max_length=128, unique=True)
     views = models.IntegerField(default=0)
