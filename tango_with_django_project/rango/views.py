@@ -235,15 +235,20 @@ def index(request):
 
 def about(request):
 
-    if request.session.test_cookie_worked():
-        print("TEST COOKIE WORKED!")
-        request.session.delete_test_cookie()
-
     # prints out whether the method is a GET or a POST
     print(request.method)
     # prints out the user name, if no one is logged in it prints 'AnonymousUser'
     print(request.user)
-    return render(request, 'rango/about.html', {})
+
+    context_dict =  {}
+
+    # Call cookie handler function
+    visitor_cookie_handler(request)
+    context_dict['visits'] = request.session['visits']
+
+    response = render(request, 'rango/about.html', context_dict)
+
+    return response
 
 def visitor_cookie_handler(request):
     # Get the number of visits to the site.
