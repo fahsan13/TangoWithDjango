@@ -132,3 +132,6 @@ MEDIA_ROOT = MEDIA_DIR
 
 # URL to which users not logged in are redirected
 LOGIN_URL = '/rango/login/'
+
+# Enable browser-length sessions
+SESSION_EXPIRE_AT_BROWSER_CLOSE = True
